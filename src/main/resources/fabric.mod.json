@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "pocketknifemod",
+	"version": "${version}",
+	"name": "Pocketknife Mod",
+	"description": "My first mod!",
+	"authors": [
+		"Brett"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/pocketknifemod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.brett.pocketknifemod.PocketknifeMod"
+		],
+		"client": [
+			"net.brett.pocketknifemod.PocketknifeModClient"
+		],
+		"fabric-datagen": [
+			"net.brett.pocketknifemod.PocketknifeModDataGenerator"
+		]
+	},
+	"mixins": [
+		"pocketknifemod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
