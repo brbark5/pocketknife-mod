@@ -1,5 +1,7 @@
 package net.brett.pocketknifemod;
 
+import net.brett.pocketknifemod.Item.ModItemGroups;
+import net.brett.pocketknifemod.Item.ModItems;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +16,9 @@ public class PocketknifeMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModItemGroups.registerItemGroups();
+
+		ModItems.registerModItems();
 		
 
 		LOGGER.info("Hello Fabric world!");
