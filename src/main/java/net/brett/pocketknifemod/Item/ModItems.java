@@ -12,11 +12,13 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
-
-    public static final Item KNIFE = registerItem("knife", new Item(new FabricItemSettings()));
+    public static final Item BASIC_KNIFE = registerItem("basic_knife", new Item(new FabricItemSettings()));
+    public static final Item GOLD_KNIFE = registerItem("gold_knife", new Item(new FabricItemSettings()));
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
-        entries.add(KNIFE);
+        entries.add(BASIC_KNIFE);
+        entries.add(GOLD_KNIFE);
+
     }
 
     private static Item registerItem(String name, Item item) {

@@ -1,5 +1,6 @@
 {
-  "item.pocketknifemod.knife": "knife",
+  "item.pocketknifemod.basic_knife": "Basic Knife",
+  "item.pocketknifemod.gold_knife": "Gold Knife",
 
   "itemgroup.knife": "Pocketknife Mod Group"
 }

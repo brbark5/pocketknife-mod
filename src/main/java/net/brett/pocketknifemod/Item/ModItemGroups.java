@@ -13,8 +13,12 @@ public class ModItemGroups {
     public static final ItemGroup KNIFE_GROUP = Registry.register(Registries.ITEM_GROUP,
             new Identifier(PocketknifeMod.MOD_ID, "knife"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.knife"))
-                    .icon(() -> new ItemStack(ModItems.KNIFE)).entries((displayContext, entries) ->
-                            entries.add(ModItems.KNIFE)).build());
+                    .icon(() -> new ItemStack(ModItems.BASIC_KNIFE)).entries((displayContext, entries) -> {
+                        entries.add(ModItems.BASIC_KNIFE);
+                        entries.add(ModItems.GOLD_KNIFE);
+
+
+                    }).build());
 
     public static void registerItemGroups() {
         PocketknifeMod.LOGGER.info("Registering Item Groups for " + PocketknifeMod.MOD_ID);
