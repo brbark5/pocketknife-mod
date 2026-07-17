@@ -1,5 +1,6 @@
 package net.brett.pocketknifemod;
 
+import net.brett.pocketknifemod.block.ModBlocks;
 import net.brett.pocketknifemod.Item.ModItemGroups;
 import net.brett.pocketknifemod.Item.ModItems;
 import org.slf4j.Logger;
@@ -19,9 +20,7 @@ public class PocketknifeMod implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 
 		ModItems.registerModItems();
-		
-
-		LOGGER.info("Hello Fabric world!");
+		ModBlocks.registerModBlocks();
 	}
 
 	public static Identifier id(String path) {

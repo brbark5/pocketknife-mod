@@ -1,6 +1,7 @@
 package net.brett.pocketknifemod.Item;
 
 import net.brett.pocketknifemod.PocketknifeMod;
+import net.brett.pocketknifemod.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -16,6 +17,10 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.BASIC_KNIFE)).entries((displayContext, entries) -> {
                         entries.add(ModItems.BASIC_KNIFE);
                         entries.add(ModItems.GOLD_KNIFE);
+
+                        entries.add(ModBlocks.STEEL_BLOCK);
+                        entries.add(ModBlocks.RAW_STEEL_BLOCK);
+
 
 
                     }).build());
