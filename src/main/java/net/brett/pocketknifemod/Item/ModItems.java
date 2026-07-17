@@ -14,10 +14,17 @@ import net.minecraft.util.Identifier;
 public class ModItems {
     public static final Item BASIC_KNIFE = registerItem("basic_knife", new Item(new FabricItemSettings()));
     public static final Item GOLD_KNIFE = registerItem("gold_knife", new Item(new FabricItemSettings()));
+    public static final Item STEEL_KNIFE = registerItem("steel_knife", new Item(new FabricItemSettings()));
+
+    public static final Item RAW_STEEL = registerItem("raw_steel", new Item(new FabricItemSettings()));
+
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.add(BASIC_KNIFE);
         entries.add(GOLD_KNIFE);
+        entries.add(STEEL_KNIFE);
+
+        entries.add(RAW_STEEL);
 
     }
 

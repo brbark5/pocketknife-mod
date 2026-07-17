@@ -1,6 +1,9 @@
 {
   "item.pocketknifemod.basic_knife": "Basic Knife",
   "item.pocketknifemod.gold_knife": "Gold Knife",
+  "item.pocketknifemod.steel_knife": "Steel Knife",
+  "item.pocketknifemod.raw_steel": "Raw Steel",
+
 
   "block.pocketknifemod.steel_block": "Block of Steel",
   "block.pocketknifemod.raw_steel_block": "Block of Raw Steel",
