@@ -9,7 +9,10 @@
 
 
   "block.pocketknifemod.refined_steel_block": "Block of Refined Steel",
-  "block.pocketknifemod.raw_steel_block": "Block of Raw Steel",
+  "block.pocketknifemod.steel_ore": "Steel Ore",
+  "block.pocketknifemod.deepslate_steel_ore": "Deepslate Steel Ore",
+  "block.pocketknifemod.nether_steel_ore": "Nether Steel Ore",
+  "block.pocketknifemod.end_stone_steel_ore": "End Stone Steel Ore",
 
   "itemgroup.knife": "Pocketknife Mod Group"
 }

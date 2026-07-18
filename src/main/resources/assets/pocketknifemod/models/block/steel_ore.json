@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "pocketknifemod:block/raw_steel_block"
+    "all": "pocketknifemod:block/steel_ore"
   }
 }

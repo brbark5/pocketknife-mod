@@ -26,7 +26,10 @@ public class ModItemGroups {
 
 
                         entries.add(ModBlocks.REFINED_STEEL_BLOCK);
-                        entries.add(ModBlocks.RAW_STEEL_BLOCK);
+                        entries.add(ModBlocks.STEEL_ORE);
+                        entries.add(ModBlocks.DEEPSLATE_STEEL_ORE);
+                        entries.add(ModBlocks.NETHER_STEEL_ORE);
+                        entries.add(ModBlocks.END_STONE_STEEL_ORE);
 
 
 

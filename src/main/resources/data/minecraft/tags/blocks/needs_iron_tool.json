@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "pocketknifemod:refined_steel_block",
+    "pocketknifemod:deepslate_steel_ore",
+    "pocketknifemod:nether_steel_ore"
+  ]
+}

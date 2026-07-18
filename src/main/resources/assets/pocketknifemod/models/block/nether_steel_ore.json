@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "pocketknifemod:block/nether_steel_ore"
+  }
+}

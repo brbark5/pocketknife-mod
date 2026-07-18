@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "pocketknifemod:block/end_stone_steel_ore"
+  }
+}
