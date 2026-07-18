@@ -17,7 +17,8 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.BASIC_KNIFE)).entries((displayContext, entries) -> {
                         entries.add(ModItems.BASIC_KNIFE);
                         entries.add(ModItems.GOLD_KNIFE);
-                        entries.add(ModItems.STEEL_KNIFE);
+                        entries.add(ModItems.CRUDE_STEEL_KNIFE);
+                        entries.add(ModItems.REFINED_STEEL_KNIFE);
 
 
                         entries.add(ModItems.RAW_STEEL);
