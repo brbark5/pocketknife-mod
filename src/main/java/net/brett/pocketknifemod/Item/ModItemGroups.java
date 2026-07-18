@@ -21,9 +21,10 @@ public class ModItemGroups {
 
 
                         entries.add(ModItems.RAW_STEEL);
+                        entries.add(ModItems.REFINED_STEEL);
 
 
-                        entries.add(ModBlocks.STEEL_BLOCK);
+                        entries.add(ModBlocks.REFINED_STEEL_BLOCK);
                         entries.add(ModBlocks.RAW_STEEL_BLOCK);
 
 

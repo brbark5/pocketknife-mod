@@ -17,6 +17,7 @@ public class ModItems {
     public static final Item STEEL_KNIFE = registerItem("steel_knife", new Item(new FabricItemSettings()));
 
     public static final Item RAW_STEEL = registerItem("raw_steel", new Item(new FabricItemSettings()));
+    public static final Item REFINED_STEEL = registerItem("refined_steel", new Item(new FabricItemSettings()));
 
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
@@ -25,6 +26,7 @@ public class ModItems {
         entries.add(STEEL_KNIFE);
 
         entries.add(RAW_STEEL);
+        entries.add(REFINED_STEEL);
 
     }
 

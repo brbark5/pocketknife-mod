@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "pocketknifemod:refined_steel_block"
+    }
+  ],
+  "result": {
+    "item": "pocketknifemod:refined_steel",
+    "count": 9
+  }
+}

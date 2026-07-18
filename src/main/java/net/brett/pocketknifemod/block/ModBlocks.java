@@ -12,7 +12,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
-    public static final Block STEEL_BLOCK = registerBlock("steel_block",
+    public static final Block REFINED_STEEL_BLOCK = registerBlock("refined_steel_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
     public static final Block RAW_STEEL_BLOCK = registerBlock("raw_steel_block",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
