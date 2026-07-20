@@ -1,5 +1,4 @@
 package net.brett.pocketknifemod.Item.custom;
-import net.brett.pocketknifemod.PocketknifeMod;
 import net.brett.pocketknifemod.block.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -53,8 +52,30 @@ player.sendMessage(Text.literal("Found " + block.asItem().getName().getString() 
     }
 
     private boolean isValuableBlock(BlockState state) {
-    return state.isOf(Blocks.IRON_ORE) || state.isOf(Blocks.GOLD_ORE) || state.isOf(Blocks.DIAMOND_ORE)
-        || state.isOf(ModBlocks.STEEL_ORE) || state.isOf(ModBlocks.DEEPSLATE_STEEL_ORE)
-            || state.isOf(ModBlocks.NETHER_STEEL_ORE) || state.isOf(ModBlocks.END_STONE_STEEL_ORE);
+    return
+            //Iron
+            state.isOf(Blocks.IRON_ORE) || state.isOf(Blocks.DEEPSLATE_IRON_ORE) ||
+
+                    //Gold
+                    state.isOf(Blocks.GOLD_ORE) || state.isOf(Blocks.DEEPSLATE_GOLD_ORE) || state.isOf(Blocks.NETHER_GOLD_ORE) ||
+
+                    //Diamond
+                    state.isOf(Blocks.DIAMOND_ORE) || state.isOf(Blocks.DEEPSLATE_DIAMOND_ORE) ||
+
+                    //Copper
+                    state.isOf(Blocks.COPPER_ORE) || state.isOf(Blocks.DEEPSLATE_COPPER_ORE) ||
+
+                    //Lapis
+                    state.isOf(Blocks.LAPIS_ORE) || state.isOf(Blocks.DEEPSLATE_LAPIS_ORE) ||
+
+                    //Emerald
+                    state.isOf(Blocks.EMERALD_ORE) || state.isOf(Blocks.DEEPSLATE_EMERALD_ORE) ||
+
+                    //Coal
+                    state.isOf(Blocks.COAL_ORE) || state.isOf(Blocks.DEEPSLATE_COAL_ORE) ||
+
+                    //Steel
+                    state.isOf(ModBlocks.STEEL_ORE) || state.isOf(ModBlocks.DEEPSLATE_STEEL_ORE) ||
+                    state.isOf(ModBlocks.NETHER_STEEL_ORE) || state.isOf(ModBlocks.END_STONE_STEEL_ORE);
     }
 }
