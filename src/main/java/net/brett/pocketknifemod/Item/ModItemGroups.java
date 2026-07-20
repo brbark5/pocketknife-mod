@@ -19,6 +19,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLD_KNIFE);
                         entries.add(ModItems.CRUDE_STEEL_KNIFE);
                         entries.add(ModItems.REFINED_STEEL_KNIFE);
+                        entries.add(ModItems.METAL_DETECTOR);
 
 
                         entries.add(ModItems.RAW_STEEL);

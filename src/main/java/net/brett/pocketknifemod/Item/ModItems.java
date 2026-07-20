@@ -1,6 +1,7 @@
 
 package net.brett.pocketknifemod.Item;
 
+import net.brett.pocketknifemod.Item.custom.MetalDetectorItem;
 import net.brett.pocketknifemod.PocketknifeMod;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -17,6 +18,8 @@ public class ModItems {
     public static final Item GOLD_KNIFE = registerItem("gold_knife", new Item(new FabricItemSettings()));
     public static final Item CRUDE_STEEL_KNIFE = registerItem("crude_steel_knife", new Item(new FabricItemSettings()));
     public static final Item REFINED_STEEL_KNIFE = registerItem("refined_steel_knife", new Item(new FabricItemSettings()));
+    public static final Item METAL_DETECTOR = registerItem("metal_detector",
+            new MetalDetectorItem(new FabricItemSettings().maxDamage(64)));
 
 
     public static final Item RAW_STEEL = registerItem("raw_steel", new Item(new FabricItemSettings()));
@@ -28,6 +31,7 @@ public class ModItems {
         entries.add(GOLD_KNIFE);
         entries.add(CRUDE_STEEL_KNIFE);
         entries.add(REFINED_STEEL_KNIFE);
+        entries.add(METAL_DETECTOR);
 
 
         entries.add(RAW_STEEL);
