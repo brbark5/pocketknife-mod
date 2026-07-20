@@ -6,7 +6,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -18,6 +20,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Map;
+import java.util.Iterator;
+
 
 public class ScanInstance {
     private static final List<Block> DETECTABLE_ORES = List.of(
@@ -83,10 +87,11 @@ public class ScanInstance {
     private final PlayerEntity player;
     private final double maxRadius;
     private final double expandSpeed = 0.8;
-    private double currentRadius = 0.5; //was 0
+    private double currentRadius = 0.5;
 
     private final List<BlockPos> orePositions;
-    private final Set<BlockPos> alreadyPinged = new HashSet<>();
+    private final Set<BlockPos> alreadyTriggered = new HashSet<>();
+    private final List<ReturnWave> activeWaves = new ArrayList<>();
 
     public ScanInstance(World world, PlayerEntity player, BlockPos center, double maxRadius) {
         this.world = world;
@@ -110,19 +115,23 @@ public class ScanInstance {
         return results;
     }
 
-    /** Returns false when the scan is finished and should be removed. */
+    /** Returns false once the ring is done expanding AND all return waves have finished. */
     public boolean tick() {
-        if (currentRadius > maxRadius) return false;
+        boolean ringActive = currentRadius <= maxRadius;
 
-        spawnRingParticles();
-        checkForPings();
+        if (ringActive) {
+            spawnRingParticles();
+            checkForNewHits();
+            currentRadius += expandSpeed;
+        }
 
-        currentRadius += expandSpeed;
-        return true;
+        tickReturnWaves();
+
+        return ringActive || !activeWaves.isEmpty();
     }
 
     private void spawnRingParticles() {
-        int points = Math.max(8, (int) (currentRadius * 2)); //was * 8
+        int points = Math.max(8, (int) (currentRadius * 2));
         for (int i = 0; i < points; i++) {
             double angle = 2 * Math.PI * i / points;
             double x = center.getX() + 0.5 + currentRadius * Math.cos(angle);
@@ -131,33 +140,87 @@ public class ScanInstance {
         }
     }
 
-    private void checkForPings() {
+    private void checkForNewHits() {
         for (BlockPos orePos : orePositions) {
-            if (alreadyPinged.contains(orePos)) continue;
+            if (alreadyTriggered.contains(orePos)) continue;
 
             double oreDist = Math.sqrt(center.getSquaredDistance(orePos));
             if (currentRadius >= oreDist) {
-                alreadyPinged.add(orePos);
-                Block foundBlock = world.getBlockState(orePos).getBlock();
-                playPing(oreDist, foundBlock);
+                alreadyTriggered.add(orePos);
+                launchReturnWave(orePos);
             }
         }
     }
 
-    private void playPing(double distance, Block foundBlock) {
-        float pitch = (float) MathHelper.clamp(2.0 - (distance / maxRadius) * 1.5, 0.5, 2.0);
-
-        world.playSound(null, player.getBlockPos(), net.minecraft.sound.SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME,
-                SoundCategory.PLAYERS, 1.0f, pitch);
-
+    private void launchReturnWave(BlockPos orePos) {
+        Block foundBlock = world.getBlockState(orePos).getBlock();
         ParticleEffect particle = ORE_PARTICLES.getOrDefault(foundBlock, ParticleTypes.END_ROD);
 
-        for (int i = 0; i < 6; i++) {
-            double offsetX = (world.random.nextDouble() - 0.5) * 0.8;
-            double offsetZ = (world.random.nextDouble() - 0.5) * 0.8;
-            world.addParticle(particle,
-                    player.getX() + offsetX, player.getY() + 1.0, player.getZ() + offsetZ,
-                    0, 0.05, 0);
+        // travel time scales with distance so far-away ore takes a bit longer to "report back"
+        int travelTicks = Math.max(10, (int) (Math.sqrt(center.getSquaredDistance(orePos)) * 1.4));
+
+        activeWaves.add(new ReturnWave(orePos, particle, travelTicks));
+
+        // a soft "detected" sound at the ore's location when the wave departs
+        world.playSound(null, orePos, SoundEvents.BLOCK_AMETHYST_BLOCK_HIT,
+                SoundCategory.PLAYERS, 0.6f, 1.4f);
+    }
+
+    private void tickReturnWaves() {
+        Iterator<ReturnWave> iterator = activeWaves.iterator();
+        while (iterator.hasNext()) {
+            ReturnWave wave = iterator.next();
+            boolean stillTraveling = wave.tick(world, player);
+            if (!stillTraveling) {
+                iterator.remove();
+            }
+        }
+    }
+
+    /** Represents a single particle trail traveling from an ore's position back to the player. */
+    private static class ReturnWave {
+        private final BlockPos origin;
+        private final ParticleEffect particle;
+        private final int travelTicks;
+        private int elapsedTicks = 0;
+
+        ReturnWave(BlockPos origin, ParticleEffect particle, int travelTicks) {
+            this.origin = origin;
+            this.particle = particle;
+            this.travelTicks = travelTicks;
+        }
+
+        /** Returns false once the wave has arrived and finished. */
+        boolean tick(World world, PlayerEntity player) {
+            if (elapsedTicks > travelTicks) return false;
+
+            double t = elapsedTicks / (double) travelTicks;
+
+            double x = lerp(origin.getX() + 0.5, player.getX(), t);
+            double y = lerp(origin.getY() + 0.5, player.getY() + 1.0, t);
+            double z = lerp(origin.getZ() + 0.5, player.getZ(), t);
+
+            // spawn a small cluster each tick so the trail reads as a moving clump, not a single dot
+            for (int i = 0; i < 6; i++) {
+                double jitterX = (world.random.nextDouble() - 0.5) * 0.2;
+                double jitterY = (world.random.nextDouble() - 0.5) * 0.2;
+                double jitterZ = (world.random.nextDouble() - 0.5) * 0.2;
+                world.addParticle(particle, x + jitterX, y + jitterY, z + jitterZ, 0, 0, 0);
+            }
+
+            elapsedTicks++;
+
+            if (elapsedTicks > travelTicks) {
+                // arrival sound/burst at the player
+                world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME,
+                        SoundCategory.PLAYERS, 1.0f, 1.2f);
+            }
+
+            return true;
+        }
+
+        private double lerp(double start, double end, double t) {
+            return start + (end - start) * t;
         }
     }
 }
