@@ -18,6 +18,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.network.packet.Packet;
+
 
 public class AutoSorterBlockEntity extends BlockEntity implements SidedInventory {
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(9, ItemStack.EMPTY);
@@ -34,11 +38,17 @@ public class AutoSorterBlockEntity extends BlockEntity implements SidedInventory
         filters.set(side.ordinal(), stack.copy());
         filters.get(side.ordinal()).setCount(1);
         markDirty();
+        if (world != null && !world.isClient) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
     }
 
     public void clearFilter(Direction side) {
         filters.set(side.ordinal(), ItemStack.EMPTY);
         markDirty();
+        if (world != null && !world.isClient) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
     }
 
     public ItemStack getFilter(Direction side) {
@@ -64,7 +74,9 @@ public class AutoSorterBlockEntity extends BlockEntity implements SidedInventory
             if (stack.isEmpty()) continue;
 
             if (be.tryFilteredPush(world, pos, stack)) continue;
-            be.tryFallbackPush(world, pos, stack);
+            if (be.tryFallbackPush(world, pos, stack)) continue;
+            be.tryOpenSpacePush(world, pos, stack);
+
         }
     }
 
@@ -88,7 +100,7 @@ public class AutoSorterBlockEntity extends BlockEntity implements SidedInventory
         return false;
     }
 
-    private void tryFallbackPush(World world, BlockPos pos, ItemStack stack) {
+    private boolean tryFallbackPush(World world, BlockPos pos, ItemStack stack) {
         for (Direction dir : Direction.values()) {
             if (!filters.get(dir.ordinal()).isEmpty()) continue; // skip faces that have a (non-matching) filter
 
@@ -103,8 +115,28 @@ public class AutoSorterBlockEntity extends BlockEntity implements SidedInventory
                 if (remainder.isEmpty()) {
                     stack.decrement(1);
                     markDirty();
-                    return;
+                    return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    private void tryOpenSpacePush(World world, BlockPos pos, ItemStack stack) {
+        for (Direction dir : Direction.values()) {
+            if (!filters.get(dir.ordinal()).isEmpty()) continue; // still respect filters
+
+            Inventory neighborInv = HopperBlockEntity.getInventoryAt(world, pos.offset(dir));
+            if (neighborInv == null) continue;
+
+            ItemStack toMove = stack.copy();
+            toMove.setCount(1);
+
+            ItemStack remainder = HopperBlockEntity.transfer(this, neighborInv, toMove, dir.getOpposite());
+            if (remainder.isEmpty()) {
+                stack.decrement(1);
+                markDirty();
+                return;
             }
         }
     }
@@ -219,5 +251,15 @@ public class AutoSorterBlockEntity extends BlockEntity implements SidedInventory
         for (int i = 0; i < filterList.size() && i < filters.size(); i++) {
             filters.set(i, ItemStack.fromNbt(filterList.getCompound(i)));
         }
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return createNbt(); // sends full data when the chunk first loads for a client
+    }
+
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this); // sends updates whenever markDirty triggers a sync
     }
 }
