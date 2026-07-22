@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pocketknifemod:block/auto_sorter_block"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 package net.brett.pocketknifemod.block;
 
 import net.brett.pocketknifemod.PocketknifeMod;
+import net.brett.pocketknifemod.block.custom.AutoSorterBlock;
 import net.brett.pocketknifemod.block.custom.SoundBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -29,6 +30,8 @@ public class ModBlocks {
 
     public static final Block SOUND_BLOCK = registerBlock("sound_block",
             new SoundBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
+    public static final Block AUTO_SORTER_BLOCK = registerBlock("auto_sorter_block",
+            new AutoSorterBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
 
 
 

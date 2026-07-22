@@ -3,6 +3,8 @@ package net.brett.pocketknifemod;
 import net.brett.pocketknifemod.block.ModBlocks;
 import net.brett.pocketknifemod.Item.ModItemGroups;
 import net.brett.pocketknifemod.Item.ModItems;
+import net.brett.pocketknifemod.block.entity.ModBlockEntities;
+import net.brett.pocketknifemod.block.entity.custom.AutoSorterInteractionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +23,9 @@ public class PocketknifeMod implements ModInitializer {
 
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModBlockEntities.registerBlockEntities();
+		AutoSorterInteractionHandler.register();
+
 	}
 
 	public static Identifier id(String path) {
