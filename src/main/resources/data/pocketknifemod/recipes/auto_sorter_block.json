@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "tag": "pocketknifemod:refined_steel"
+    },
+    "X": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "item": "pocketknifemod:auto_sorter_block"
+  },
+  "show_notification": true
+}
