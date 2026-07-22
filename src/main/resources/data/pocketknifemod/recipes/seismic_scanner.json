@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "Y": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "pocketknifemod:refined_steel"
+    }
+  },
+  "pattern": [
+    "  #",
+    " Y ",
+    "X  "
+  ],
+  "result": {
+    "item": "pocketknifemod:seismic_scanner"
+  },
+  "show_notification": true
+}

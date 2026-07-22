@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "Y": {
+      "item": "minecraft:redstone"
+    },
+    "X": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "  #",
+    " Y ",
+    "X  "
+  ],
+  "result": {
+    "item": "pocketknifemod:metal_detector"
+  },
+  "show_notification": true
+}
