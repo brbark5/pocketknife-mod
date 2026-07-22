@@ -1,6 +1,7 @@
 package net.brett.pocketknifemod.block;
 
 import net.brett.pocketknifemod.PocketknifeMod;
+import net.brett.pocketknifemod.block.custom.SoundBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -25,6 +26,9 @@ public class ModBlocks {
             new ExperienceDroppingBlock(FabricBlockSettings.copyOf(Blocks.NETHERRACK).strength(1.5F), UniformIntProvider.create(3, 7)));
     public static final Block END_STONE_STEEL_ORE = registerBlock("end_stone_steel_ore",
             new ExperienceDroppingBlock(FabricBlockSettings.copyOf(Blocks.END_STONE).strength(4.0F), UniformIntProvider.create(4, 7)));
+
+    public static final Block SOUND_BLOCK = registerBlock("sound_block",
+            new SoundBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK)));
 
 
 

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "pocketknifemod:steel_ore"
+    "pocketknifemod:steel_ore",
+    "pocketknifemod:sound_block"
   ]
 }

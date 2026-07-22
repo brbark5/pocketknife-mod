@@ -17,5 +17,8 @@
   "block.pocketknifemod.nether_steel_ore": "Nether Steel Ore",
   "block.pocketknifemod.end_stone_steel_ore": "End Stone Steel Ore",
 
+  "block.pocketknifemod.sound_block": "Sound Block",
+
+
   "itemgroup.knife": "Pocketknife Mod Group"
 }

@@ -34,6 +34,9 @@ public class ModItemGroups {
                         entries.add(ModBlocks.NETHER_STEEL_ORE);
                         entries.add(ModBlocks.END_STONE_STEEL_ORE);
 
+                        entries.add(ModBlocks.SOUND_BLOCK);
+
+
 
 
                     }).build());
